@@ -14,3 +14,20 @@ function getAllFreelancer(){
         $GLOBALS['freelancers'][]=$freelancer;
     }
 }
+
+function addfreelancer(){
+    if(isset($_POST['add_freelancers'])){
+        $name_feerlancer = $_POST['name_freelancer'];
+        $skill = $_POST['skill'];
+        $ID_user = $_POST['ID_user'];
+        $addquery = "INSERT INTO Freelances (Name_freelance, Skill, ID_user) 
+        VALUES 
+        ('$name_feerlancer', '$skill',$ID_user);";
+        global $con;
+        $result = mysqli_query($con,$addquery);
+
+        header("Location: /PeoplePerTask/project/dashboard/freelancers.php");
+    }
+}
+addfreelancer();
+?>

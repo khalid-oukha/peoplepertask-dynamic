@@ -15,6 +15,24 @@ function getAllProjects(){
         $GLOBALS['projects'][]=$project;
     }
 }
+function add_project(){
+    if(isset($_POST['add_project']))
+    {
+    $name_project = $_POST['Title'];
+    $description = $_POST['Description_project'];
+    $id_user = $_POST['ID_User'];
+    $id_category = $_POST['ID_Categorie'];
+    $addquery = "INSERT INTO Projets (Title, Description_project, ID_User, ID_Categorie)
+    VALUES 
+    ('$name_project', '$description',$id_user,$id_category);";
+    global $con;
+    $result = mysqli_query($con,$addquery);
+        
+    header("Location: /PeoplePerTask/project/dashboard/projects.php");
+}
 
+}
+
+add_project();
 
 ?>

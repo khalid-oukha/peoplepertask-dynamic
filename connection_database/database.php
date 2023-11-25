@@ -12,8 +12,5 @@
     {
         die("NOT connecte" . mysqli_connect_error());
     }
-    else
-    {
-        echo 'connection successfully';
-    }
+
 ?>

@@ -4,6 +4,8 @@ $freelancer_active = "";
 $dashboard_active = "";
 $categorys_active = "active";
 $Testimonial_active = "";
+require "../../backend/categorys_script.php";
+getAllCategorys();
 ?>
 
 
@@ -14,7 +16,7 @@ $Testimonial_active = "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PeoplePerTask</title>
     <link rel="stylesheet" href="dashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -32,7 +34,7 @@ $Testimonial_active = "";
 
 <body>
     <div class="wrapper">
-             <?php
+            <?php
             require "sidebar.php";
             ?>
         <div class="main">
@@ -93,36 +95,36 @@ $Testimonial_active = "";
             <div class="container my-4 py-4">
   <!-- Primary Button -->
   <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
-                               data-bs-target="#exampleModalCenter1"> ADD new freelancer </button>
+                               data-bs-target="#exampleModalCenter2"> ADD new freelancer </button>
             
-                <table id="example" class="table table-striped  " style="width:100%">
+                <table id="example3" class="table table-striped  " style="width:100%">
                     <thead>
                         <tr class="table-dark">
                             <th>ID</th>
-                            <th>FREELANCER NAME</th>
-                            <th>SKILL</th>
-                            <th>EMAIL</th>
-                            <th>BIRTHDAY</th>
-                            <th ></th>
+                            <th>category NAME</th>
+                            <th>number of project</th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        <tr class="table-warning">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="d-flex justify-content-end ">
-                            
+                        <?php
+                        
+                        for($i = 0;$i<count($GLOBALS["categorys"]); $i++){
+                        ?>
+                        <tr>
+                            <td><?=$GLOBALS["categorys"][$i]["ID"]?></td>
+                            <td><?=$GLOBALS["categorys"][$i]["Name_categories"]?></td>
+                            <td><?=$GLOBALS["categorys"][$i]["number of projects"]?></td>
+                            <td class="d-flex justify-content-end ">   
                             <button type="button" class="btn btn-danger mx-2">DELETE</button>
-                            <button type="button" class="btn btn-warning " data-bs-toggle="modal"
+                            <button type="button" class="btn btn-dark " data-bs-toggle="modal"
                                data-bs-target="#exampleModalCenter"> UPDATE </button>
                             </td>
 
                         </tr>
                         
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
 
@@ -175,7 +177,11 @@ $Testimonial_active = "";
                 <div class="modal-body">
                     <form>
                     <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">freelancer id</label>
+                            <label for="recipient-name" class="col-form-label">Name freelancer</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Skill</label>
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
                         <div class="mb-3">
@@ -183,11 +189,7 @@ $Testimonial_active = "";
                             <input type="text" class="form-control" id="recipient-name">
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">freelancer id</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
+                            <label for="message-text" class="col-form-label">ID_user</label>
                             <textarea class="form-control" id="message-text"></textarea>
                         </div>
                     </form>
