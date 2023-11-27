@@ -6,7 +6,7 @@ if(isset($_POST['sendId'])){
     getFreelancer();
 }
 
-function getAllFreelancer(){
+function getAllUsers(){
     $query = "select f.ID,f.Name_freelance,f.Skill,u.email,u.birthday from freelances f
     inner join users u 
     on f.ID_user = u.ID;";

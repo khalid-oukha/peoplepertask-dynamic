@@ -5,13 +5,16 @@ $dashboard_active = "";
 $categorys_active = "";
 $Testimonial_active = "";
 require "../../backend/project_script.php";
+require "../../backend/categorys_script.php";
 getAllProjects();
+getAllCategorys();
 ?>
 
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +112,7 @@ getAllProjects();
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
+                        <?php
                         for($i = 0 ; $i<count($GLOBALS["projects"]); $i++){
                         ?>
                         <tr>
@@ -119,16 +122,19 @@ getAllProjects();
                             <td><?=$GLOBALS["projects"][$i]["Name_user"]?></td>
                             <td><?=$GLOBALS["projects"][$i]["Name_categories"]?></td>
 
-                            <form id="project_deleteForm"  action="../../backend/project_script.php" method="post">
-                                <input type="hidden" name="deleteId_project"  value="<?= $GLOBALS["projects"][$i]["ID"] ?>">
+                            <form id="project_deleteForm" action="../../backend/project_script.php" method="POST">
+                                <input type="hidden" name="deleteId_project"
+                                    value="<?= $GLOBALS["projects"][$i]["ID"] ?>">
                                 <td>
-                                    <input type="button"   onclick="deleteProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)" name="delete_project" value="delete" class="btn btn-danger mx-2">
+                                    <input type="button" onclick="deleteProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)"
+                                        name="delete_project" value="delete" class="btn btn-danger mx-2">
                                 </td>
                             </form>
 
-                                <td>
-                                <button type="button"  onclick="updateProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)" class="btn btn-dark " > UPDATE </button>
-                                </td>
+                            <td>
+                                <button type="button" onclick="updateProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)"
+                                    class="btn btn-dark "> UPDATE </button>
+                            </td>
 
                         </tr>
                         <?php
@@ -149,51 +155,58 @@ getAllProjects();
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Project</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                    <div class="mb-3">
+                    <form action="../../backend/project_script.php" method="POST">
+                        <div class="mb-3">
+                        <input type="hidden"  name="id_project" class="form-control" id="id_project">
                             <label for="recipient-name" class="col-form-label">Project Name</label>
-                            <input type="text" name="Title" class="form-control" id="Project-name">
+                            <input type="text" name="newtitle" class="form-control" id="oldProject-name">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Desciption</label>
                             <input type="text" name="Description_project" class="form-control" id="oldDesciption">
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">User</label>
-                            <input type="text" name="ID_User" class="form-control" id="User-name">
-                        </div>
-                        <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">category</label>
-                            <input type="text" name="ID_Categorie" class="form-control" id="category-name">
+                        <select name="newID_Categorie" class="form-select" aria-label="Default select example">
+                             <option id="oldID_Categorie" selected disabled>Open this select menu</option>
+                        <?php
+                        for($i = 0 ; $i<count($GLOBALS["categorys"]); $i++){
+                        ?>
+                             <option value="<?=$GLOBALS["categorys"][$i]["ID"]?>"><?=$GLOBALS["categorys"][$i]["Name_categories"]?></option>
+                        <?php
+                        };
+                        ?>
+                        </select>
                         </div>
+                        <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" name="new_project" class="btn btn-success" value="Save changes">
+                </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+
             </div>
         </div>
     </div>
     <form action="../../backend/project_script.php" method="POST">
-    <div class="modal fade modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">ADD PROJECT</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    
+        <div class="modal fade modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">ADD PROJECT</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Project Name</label>
                             <input type="text" name="Title" class="form-control" id="recipient-name">
@@ -202,26 +215,36 @@ getAllProjects();
                             <label for="recipient-name" class="col-form-label">Desciption</label>
                             <input type="text" name="Description_project" class="form-control" id="recipient-name">
                         </div>
+                        <label for="recipient-name" class="col-form-label">category</label>
+
+                        <select name="ID_Categorie" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Open this select menu</option>
+                        <?php
+                        for($i = 0 ; $i<count($GLOBALS["categorys"]); $i++){
+                        ?>
+                            <option value="<?=$GLOBALS["categorys"][$i]["ID"]?>"><?=$GLOBALS["categorys"][$i]["Name_categories"]?></option>
+                        <?php
+                        };
+                        ?>
+                        </select>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">User</label>
                             <input type="text" name="ID_User" class="form-control" id="recipient-name">
                         </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">category</label>
-                            <input type="text" name="ID_Categorie" class="form-control" id="recipient-name">
-                        </div>
 
-                   
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" name="add_project" class="btn btn-success" value="ADD">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit" name="add_project" class="btn btn-success" value="ADD">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>

@@ -12,17 +12,15 @@ function updateProject(id){
     $.ajax({
         url: '../../backend/project_script.php', 
         method: 'POST', 
-        data: { sendId: id },
+        data: { projectId: id },
         dataType: 'html',
         success: function(response) {
+            console.log(id);
             console.log(response);
             response = JSON.parse(response);
-           document.getElementById("Project-name").value = response["Title"];
-           document.getElementById("oldDesciption").value = response["Description_project"];
-           document.getElementById("User-name").value = response["Name_user"];
-           document.getElementById("category-name").value = response["Name_categories"];  
-           console.log(response);
-            console.log(response);
+            document.getElementById("id_project").value = response["ID"];
+            document.getElementById("oldProject-name").value = response["Title"];
+            document.getElementById("oldDesciption").value = response["Description_project"];
             myModal.show(); 
          },
          error: function(xhr, status, error) {

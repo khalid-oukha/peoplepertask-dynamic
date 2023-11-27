@@ -15,6 +15,10 @@
                         <a href="freelancers.php" class="sidebar_link"> <img src="img/agents.svg"
                                 alt="icon">freelancer</a>
                     </li>
+                    <li class="sidebar_item">
+                        <a href="user.php" class="sidebar_link"> <img src="img/agents.svg"
+                                alt="icon">Users</a>
+                    </li>
                     <li class="sidebar_item <?=$projects_active?>">
                         <a href="Projects.php" class="sidebar_link"> <img src="img/task.svg" alt="icon">Projects</a>
                     </li>

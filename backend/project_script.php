@@ -1,12 +1,15 @@
 <?php
 include(__DIR__."../../connection_database/database.php");
-if(isset($_POST['sendid'])){
+if(isset($_POST['projectId'])){
     getProject();
+}
+if(isset($_POST['deleteId_project'])){
+    deleteProject();
 }
 
 function getAllProjects(){
     $query = "select p.ID,p.Title,p.Description_project,u.Name_user,c.Name_categories from Projets p
-    inner join Categories c on 
+    left join Categories c on 
     p.ID_Categorie=c.ID
     inner join users u on
     p.ID_User = u.ID;";
@@ -18,6 +21,9 @@ function getAllProjects(){
         $GLOBALS['projects'][]=$project;
     }
 }
+
+
+
 function add_project(){
     if(isset($_POST['add_project']))
     {
@@ -39,19 +45,20 @@ function add_project(){
 add_project();
 
 function deleteProject(){
-    if(isset($_POST['deleteId_project'])){
+   
         $id = $_POST['deleteId_project'];
-        $query = "delete from Projets where id = $id;";
+        $query = "DELETE FROM projets WHERE Id='$id';";
         global $con ;
         $res = mysqli_query($con,$query);
         header("Location: /PeoplePerTask/project/dashboard/projects.php");
 
-    }
+
 }
-deleteProject();
+
+
 function getProject(){
-    $id= $_POST['sendId'] ;
-    $query = "select p.ID,p.Title,p.Description_project,u.Name_user,c.Name_categories from Projets p
+    $id= $_POST['projectId'] ;
+    $query = "select p.ID,p.Title,p.Description_project,u.Name_user,p.ID_Categorie from Projets p
     inner join Categories c on 
     p.ID_Categorie=c.ID
     inner join users u on
@@ -64,4 +71,21 @@ function getProject(){
        echo json_encode ($row);
     }
 }
+
+function newDataproject(){
+    if(isset($_POST['new_project'])){
+        $id = $_POST['id_project'];
+        $title = $_POST['newtitle'];
+        $description = $_POST['Description_project'];
+        $newID_Categorie = $_POST['newID_Categorie'];
+        $editquery = "UPDATE projets
+        SET Title ='$title',Description_project='$description',ID_Categorie='$newID_Categorie'
+        WHERE ID ='$id';";
+        global $con;
+        $result = mysqli_query($con,$editquery);
+        header("Location: /PeoplePerTask/project/dashboard/projects.php");
+    }
+}
+
+newDataproject();
 ?>

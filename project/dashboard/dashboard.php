@@ -10,7 +10,7 @@ $nbr_users = users_count();
 $nbr_freelances = freelancers_count();
 $percentage = ($nbr_freelances / $nbr_users) * 100;
 $formatted_percentage = sprintf("%.2f", $percentage);
-$nbr_categorys = freelancers_count();
+$nbr_categorys = categorys_count();
 $nbr_Offers = offers_count();
 $nbr_liveOffers = live_offers_count();
 user_projects();

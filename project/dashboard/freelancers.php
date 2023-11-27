@@ -107,37 +107,37 @@ getAllFreelancer();
                     </thead>
                     <tbody>
                         <?php
-                        if(!empty($GLOBALS["freelancers"])){
-                        for ($i = 0; $i < count($GLOBALS["freelancers"]); $i++) {
+                        if (!empty($GLOBALS["freelancers"])) {
+                            for ($i = 0; $i < count($GLOBALS["freelancers"]); $i++) {
                         ?>
-                            <tr>
-                                <td><?= $GLOBALS["freelancers"][$i]["ID"] ?></td>
-                                <td><?= $GLOBALS["freelancers"][$i]["Name_freelance"] ?></td>
-                                <td><?= $GLOBALS["freelancers"][$i]["Skill"] ?></td>
-                                <td><?= $GLOBALS["freelancers"][$i]["email"] ?></td>
-                                <td><?= $GLOBALS["freelancers"][$i]["birthday"] ?></td>
-                                
-                                <form id="deleteForm"  action="../../backend/freelancer_script.php" method="post">
-                                <input type="hidden" name="deleteId"  value="<?= $GLOBALS["freelancers"][$i]["ID"] ?>">
-                                <td>
-                                    <input type="button"   onclick="deleteFreelancer(<?= $GLOBALS['freelancers'][$i]['ID'] ?>)" name="delete_freelancer" value="delete" class="btn btn-danger mx-2">
-                                </td>
-                                </form>
+                                <tr>
+                                    <td><?= $GLOBALS["freelancers"][$i]["ID"] ?></td>
+                                    <td><?= $GLOBALS["freelancers"][$i]["Name_freelance"] ?></td>
+                                    <td><?= $GLOBALS["freelancers"][$i]["Skill"] ?></td>
+                                    <td><?= $GLOBALS["freelancers"][$i]["email"] ?></td>
+                                    <td><?= $GLOBALS["freelancers"][$i]["birthday"] ?></td>
 
-                                <td>
-                                <button type="button" class="btn btn-dark " onclick="updateFreelancer(<?= $GLOBALS['freelancers'][$i]['ID'] ?>)"> UPDATE </button>
-                               <!-- <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> UPDATE </button>
-                        --></td>
+                                    <form id="deleteForm" action="../../backend/freelancer_script.php" method="post">
+                                        <input type="hidden" name="deleteId" value="<?= $GLOBALS["freelancers"][$i]["ID"] ?>">
+                                        <td>
+                                            <input type="submit" onclick="confirm('are you sure you want to delete this freelancer')" name="delete_freelancer" value="delete" class="btn btn-danger mx-2">
+                                        </td>
+                                    </form>
+                                    <td>
+                                        <button type="button" class="btn btn-dark " onclick="updateFreelancer(<?= $GLOBALS['freelancers'][$i]['ID'] ?>)"> UPDATE </button>
+                                        <!-- <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> UPDATE </button>
+                        -->
+                                    </td>
 
-                            </tr>
+                                </tr>
 
                         <?php
+                            }
                         }
-                    }
                         ?>
                     </tbody>
                     <tfoot>
-                    <tr class="table-dark">
+                        <tr class="table-dark">
                             <th>ID</th>
                             <th>FREELANCER NAME</th>
                             <th>SKILL</th>
@@ -146,7 +146,7 @@ getAllFreelancer();
                             <th></th>
                             <th></th>
                         </tr>
-        </tfoot>
+                    </tfoot>
                 </table>
 
             </div>
@@ -166,11 +166,11 @@ getAllFreelancer();
                     </button>
                 </div>
                 <div class="modal-body">
-                <form action="../../backend/freelancer_script.php" method="POST">
-                    <div class="mb-3">
-                    <input type="hidden"  name="id_freelancer" class="form-control" id="idFormUpdate">
-                    <label for="recipient-name" class="col-form-label">Name freelancer</label>
-                            <input type="text"  name="name_freelancer" class="form-control" id="nameFormUpdate">
+                    <form action="../../backend/freelancer_script.php" method="POST">
+                        <div class="mb-3">
+                            <input type="hidden" name="id_freelancer" class="form-control" id="idFormUpdate">
+                            <label for="recipient-name" class="col-form-label">Name freelancer</label>
+                            <input type="text" name="name_freelancer" class="form-control" id="nameFormUpdate">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Skill</label>
@@ -185,11 +185,11 @@ getAllFreelancer();
                             <input type="text" name="email_user" class="form-control" id="emailFormUpdate">
 
                         </div>
-                    </div>
-                    <div class="modal-footer">
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <input type="submit" name="newFreelancer" class="btn btn-primary">
-                    </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -222,7 +222,7 @@ getAllFreelancer();
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input  type="submit" class="btn btn-success" name="add_freelancers" value="ADD">
+                        <input type="submit" class="btn btn-success" name="add_freelancers" value="ADD">
                     </div>
                 </div>
             </div>

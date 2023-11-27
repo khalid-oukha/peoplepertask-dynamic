@@ -15,7 +15,6 @@ function updateFreelancer(id){
            document.getElementById("skillFormUpdate").value = response["Skill"];
            document.getElementById("birthdayFormUpdate").value = response["birthday"];  
            document.getElementById("emailFormUpdate").value = response["email"];  
-           console.log(response);
            myModal.show(); 
         },
         error: function(xhr, status, error) {
@@ -25,10 +24,10 @@ function updateFreelancer(id){
     
 }
 
-function deleteFreelancer(id){
-    console.log(id)
-    var confirmation  = confirm("are you sure you want to delete this freelancer");
-    if(confirmation){
-        document.getElementById("deleteForm").submit();
-    }
-}
+// function deleteFreelancer(id){
+//     console.log(id)
+//     var confirmation  = confirm("are you sure you want to delete this freelancer");
+//     if(confirmation){
+//         document.getElementById("deleteForm").submit();
+//     }
+// }
