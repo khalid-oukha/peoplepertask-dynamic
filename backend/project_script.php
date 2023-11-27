@@ -1,5 +1,8 @@
 <?php
 include(__DIR__."../../connection_database/database.php");
+if(isset($_POST['sendid'])){
+    getProject();
+}
 
 function getAllProjects(){
     $query = "select p.ID,p.Title,p.Description_project,u.Name_user,c.Name_categories from Projets p
@@ -35,4 +38,30 @@ function add_project(){
 
 add_project();
 
+function deleteProject(){
+    if(isset($_POST['deleteId_project'])){
+        $id = $_POST['deleteId_project'];
+        $query = "delete from Projets where id = $id;";
+        global $con ;
+        $res = mysqli_query($con,$query);
+        header("Location: /PeoplePerTask/project/dashboard/projects.php");
+
+    }
+}
+deleteProject();
+function getProject(){
+    $id= $_POST['sendId'] ;
+    $query = "select p.ID,p.Title,p.Description_project,u.Name_user,c.Name_categories from Projets p
+    inner join Categories c on 
+    p.ID_Categorie=c.ID
+    inner join users u on
+    p.ID_User = u.ID
+    where p.ID= '$id';";
+
+    global $con;
+    $res = mysqli_query($con,$query);
+    while($row = mysqli_fetch_assoc( $res )){
+       echo json_encode ($row);
+    }
+}
 ?>

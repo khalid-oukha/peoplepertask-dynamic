@@ -97,12 +97,13 @@ getAllCategorys();
   <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
                                data-bs-target="#exampleModalCenter2"> ADD new freelancer </button>
             
-                <table id="example3" class="table table-striped  " style="width:100%">
+                <table id="example" class="table table-striped  " style="width:100%">
                     <thead>
                         <tr class="table-dark">
                             <th>ID</th>
                             <th>category NAME</th>
                             <th>number of project</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -126,6 +127,7 @@ getAllCategorys();
                         }
                         ?>
                     </tbody>
+                    
                 </table>
 
             </div>

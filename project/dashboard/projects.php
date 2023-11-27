@@ -96,7 +96,7 @@ getAllProjects();
                 <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal"
                     data-bs-target="#exampleModalCenter1"> ADD New PROJECT</button>
 
-                <table id="example2" class="table table-striped  " style="width:100%">
+                <table id="example" class="table table-striped  " style="width:100%">
                     <thead>
                         <tr class="table-dark">
                             <th>ID</th>
@@ -104,6 +104,8 @@ getAllProjects();
                             <th>DESCRIPTION</th>
                             <th>PROJECT OWNER</th>
                             <th>CATEGORY NAME</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -116,11 +118,17 @@ getAllProjects();
                             <td><?=$GLOBALS["projects"][$i]["Description_project"]?></td>
                             <td><?=$GLOBALS["projects"][$i]["Name_user"]?></td>
                             <td><?=$GLOBALS["projects"][$i]["Name_categories"]?></td>
-                            <td class="d-flex justify-content-end ">
-                                <button type="button" onclick="delete(<?=$GLOBALS['projects'][$i]['ID']?>)" class="btn btn-danger mx-2">DELETE</button>
-                                <button type="button" class="btn btn-warning " data-bs-toggle="modal"
-                                    data-bs-target="#exampleModalCenter"> UPDATE </button>
-                            </td>
+
+                            <form id="project_deleteForm"  action="../../backend/project_script.php" method="post">
+                                <input type="hidden" name="deleteId_project"  value="<?= $GLOBALS["projects"][$i]["ID"] ?>">
+                                <td>
+                                    <input type="button"   onclick="deleteProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)" name="delete_project" value="delete" class="btn btn-danger mx-2">
+                                </td>
+                            </form>
+
+                                <td>
+                                <button type="button"  onclick="updateProject(<?= $GLOBALS['projects'][$i]['ID'] ?>)" class="btn btn-dark " > UPDATE </button>
+                                </td>
 
                         </tr>
                         <?php
@@ -148,13 +156,21 @@ getAllProjects();
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                    <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Project Name</label>
+                            <input type="text" name="Title" class="form-control" id="Project-name">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="recipient-name" class="col-form-label">Desciption</label>
+                            <input type="text" name="Description_project" class="form-control" id="oldDesciption">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">User</label>
+                            <input type="text" name="ID_User" class="form-control" id="User-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">category</label>
+                            <input type="text" name="ID_Categorie" class="form-control" id="category-name">
                         </div>
                     </form>
                 </div>
@@ -210,7 +226,8 @@ getAllProjects();
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script src="js/script.js"></script>
+
+    <script src="js/project_script.js"></script>
 </body>
 
 </html>
