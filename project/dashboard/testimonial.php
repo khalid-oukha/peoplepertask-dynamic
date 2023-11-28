@@ -91,7 +91,7 @@ getAlltestimonials();
             </nav>
             <div class="container my-4 py-4">
                 <!-- Primary Button -->
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1"> ADD New testimonial </button>
+
 
                 <table id="example" class="table table-striped  " style="width:100%">
                     <thead>
@@ -115,11 +115,14 @@ getAlltestimonials();
                                 <td><?= $GLOBALS["testimonials"][$i]["testimonial_Message"] ?></td>
                                 <td><?= $GLOBALS["testimonials"][$i]["created_at"] ?></td>
                                 <td>
-                                <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> UPDATE </button>
                                 </td>
-                                <td>
-                                    <button type="button" class="btn btn-danger mx-2">DELETE</button>
-                                </td>
+                                
+                                <form id="deleteForm" action="../../backend/testimonial_script.php" method="post">
+                                        <input type="hidden" name="deleteId" value="<?= $GLOBALS["testimonials"][$i]["ID"] ?>">
+                                        <td>
+                                            <input type="submit" onclick="confirm('are you sure you want to delete this testimonial')" name="delete_testimonial" value="delete" class="btn btn-danger mx-2">
+                                        </td>
+                                </form>
 
                             </tr>
 
@@ -138,72 +141,7 @@ getAlltestimonials();
     </div>
 
 
-    <!-- Modal update -->
-    <div class="modal fade modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">New Testimonial</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                    <select name="ID_Categorie" class="form-select" aria-label="Default select example">
-                            <option id=""   selected disabled>Open this select menu</option>
-                            <?php
-                            for ($i = 0; $i < count($GLOBALS["categorys"]); $i++) {
-                            ?>
-                                <option value="<?= $GLOBALS["categorys"][$i]["ID"] ?>"><?= $GLOBALS["categorys"][$i]["Name_categories"] ?></option>
-                            <?php
-                            };
-                            ?>
-                        </select>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- add freelancer modal -->
 
-
-        <div class="modal fade modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">NEW testimonial</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="../../backend/testimonial_script.php" method="POST">
-                    <div class="modal-body">
-                    <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">User</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">testimonial</label>
-                            <textarea class="form-control" name="testimonial" id="message-text"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input  type="submit" class="btn btn-success" name="add_freelancers" value="ADD">
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>

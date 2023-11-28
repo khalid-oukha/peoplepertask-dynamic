@@ -14,3 +14,13 @@ function getAlltestimonials(){
         $GLOBALS['testimonials'][]=$row;
     }
 }
+function delete_testimonial(){
+    if(isset($_POST['deleteId'])){
+        $id_testimonial = $_POST['deleteId'];
+        $deletequery = "delete from testimonial where ID = '$id_testimonial';";
+        global $con;
+        $result = mysqli_query($con,$deletequery);
+        header("Location: /PeoplePerTask/project/dashboard/testimonial.php");
+    }
+}
+delete_testimonial();

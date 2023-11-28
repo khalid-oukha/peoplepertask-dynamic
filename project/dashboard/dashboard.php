@@ -5,13 +5,13 @@ $dashboard_active = "active";
 $categorys_active = "";
 $Testimonial_active = "";
 require "../../backend/statistic_script.php";
-$nbr_project = project_count();
-$nbr_users = users_count();
-$nbr_freelances = freelancers_count();
+$nbr_project = statistic_count("project_count","projets");
+$nbr_users = statistic_count("users_count","users");;
+$nbr_freelances = statistic_count("freelancers_count","freelances");;
 $percentage = ($nbr_freelances / $nbr_users) * 100;
 $formatted_percentage = sprintf("%.2f", $percentage);
-$nbr_categorys = categorys_count();
-$nbr_Offers = offers_count();
+$nbr_categorys = statistic_count("Categories_count","Categories");;
+$nbr_Offers = statistic_count("Offres_count","Offres");;
 $nbr_liveOffers = live_offers_count();
 user_projects();
 ?>
