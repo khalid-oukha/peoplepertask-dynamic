@@ -2,57 +2,66 @@
 
 include(__DIR__."/../connection_database/database.php");
 
-if(isset($_POST['sendId'])){
-    getFreelancer();
+if(isset($_POST['userId'])){
+    getUser();
 }
 
 function getAllUsers(){
-    $query = "select f.ID,f.Name_freelance,f.Skill,u.email,u.birthday from freelances f
-    inner join users u 
-    on f.ID_user = u.ID;";
+    $query = "SELECT u.ID,u.Name_user,u.Password_user,u.email,u.birthday,v.id,v.ville FROM users u 
+    inner JOIN ville v
+    ON u.city=v.id;";
 
     global $con;
     $res = mysqli_query($con,$query);
 
-    while($freelancer = mysqli_fetch_assoc( $res )){
-        $GLOBALS['freelancers'][]=$freelancer;
+    while($user = mysqli_fetch_assoc( $res )){
+        $GLOBALS['users'][]=$user;
+    }
+}
+function getAllCitys(){
+    $query = "SELECT * FROM ville;";
+
+    global $con;
+    $res = mysqli_query($con,$query);
+
+    while($city = mysqli_fetch_assoc( $res )){
+        $GLOBALS['citys'][]=$city;
     }
 }
 
 
-function addfreelancer(){
-    if(isset($_POST['add_freelancers'])){
-        $name_feerlancer = $_POST['name_freelancer'];
-        $skill = $_POST['skill'];
-        $ID_user = $_POST['ID_user'];
-        $addquery = "INSERT INTO Freelances (Name_freelance, Skill, ID_user) 
+function adduser(){
+    if(isset($_POST['add_user'])){
+        $name_user = $_POST['name_user'];
+        $email_user = $_POST['email_user'];
+        $password_user = $_POST['password_user'];
+        $birthday_user = $_POST['birthday_user'];
+        $city_user = $_POST['city_user'];
+        $addquery = "INSERT INTO users (Name_user, email, Password_user, birthday,city) 
         VALUES 
-        ('$name_feerlancer', '$skill',$ID_user);";
+        ('$name_user', '$email_user','$password_user','$birthday_user',$city_user);";
         global $con;
         $result = mysqli_query($con,$addquery);
-        header("Location: /PeoplePerTask/project/dashboard/freelancers.php");
+        header("Location: /PeoplePerTask/project/dashboard/user.php");
     }
 }
-addfreelancer();
+adduser();
 
-function deleteFreelancer(){
+function deleteuser(){
     if(isset($_POST['deleteId'])){
-        $id_feerlancer = $_POST['deleteId'];
-        $deletequery = "delete from Freelances where ID = '$id_feerlancer';";
+        $id_user = $_POST['deleteId'];
+        $deletequery = "delete from users where ID = '$id_user';";
         global $con;
         $result = mysqli_query($con,$deletequery);
-        header("Location: /PeoplePerTask/project/dashboard/freelancers.php");
+        header("Location: /PeoplePerTask/project/dashboard/user.php");
     }
 }
-deleteFreelancer();
+deleteuser();
 
-function getFreelancer(){
-    $id= $_POST['sendId'] ;
-    $query = "select f.ID, f.Name_freelance, f.Skill, u.email,
-    u.birthday from freelances f
-    inner join users u 
-    on f.ID_user = u.ID
-    where f.ID = '$id'
+function getUser(){
+    $id= $_POST['userId'] ;
+    $query = "SELECT ID, Name_user, Password_user, email, birthday, city FROM users
+    where ID = '$id'
     ;";
 
     global $con;

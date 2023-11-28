@@ -7,6 +7,7 @@ $Testimonial_active = "";
 
 require "../../backend/user_script.php";
 getAllUsers();
+getAllCitys();
 ?>
 
 
@@ -92,42 +93,43 @@ getAllUsers();
             </nav>
             <div class="container my-4 py-4">
                 <!-- Primary Button -->
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1"> ADD new freelancer </button>
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1"> ADD New User </button>
 
                 <table id="example" class="table table-striped  " style="width:100%">
                     <thead>
                         <tr class="table-dark">
                             <th>ID</th>
-                            <th>FREELANCER NAME</th>
-                            <th>SKILL</th>
+                            <th>User NAME</th>
                             <th>EMAIL</th>
+                            <th>Password</th>
                             <th>BIRTHDAY</th>
+                            <th>Ville</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        if (!empty($GLOBALS["freelancers"])) {
-                            for ($i = 0; $i < count($GLOBALS["freelancers"]); $i++) {
+                        if (!empty($GLOBALS["users"])) {
+                            for ($i = 0; $i < count($GLOBALS["users"]); $i++) {
                         ?>
                                 <tr>
-                                    <td><?= $GLOBALS["freelancers"][$i]["ID"] ?></td>
-                                    <td><?= $GLOBALS["freelancers"][$i]["Name_freelance"] ?></td>
-                                    <td><?= $GLOBALS["freelancers"][$i]["Skill"] ?></td>
-                                    <td><?= $GLOBALS["freelancers"][$i]["email"] ?></td>
-                                    <td><?= $GLOBALS["freelancers"][$i]["birthday"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["ID"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["Name_user"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["email"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["Password_user"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["birthday"] ?></td>
+                                    <td><?= $GLOBALS["users"][$i]["ville"] ?></td>
 
-                                    <form id="deleteForm" action="../../backend/freelancer_script.php" method="post">
-                                        <input type="hidden" name="deleteId" value="<?= $GLOBALS["freelancers"][$i]["ID"] ?>">
+                                    <form id="deleteForm" action="../../backend/user_script.php" method="post">
+                                        <input type="hidden" name="deleteId" value="<?= $GLOBALS["users"][$i]["ID"] ?>">
                                         <td>
-                                            <input type="submit" onclick="confirm('are you sure you want to delete this freelancer')" name="delete_freelancer" value="delete" class="btn btn-danger mx-2">
+                                            <input type="submit" onclick="confirm('are you sure you want to delete this user')" name="delete_user" value="delete" class="btn btn-danger mx-2">
                                         </td>
                                     </form>
                                     <td>
-                                        <button type="button" class="btn btn-dark " onclick="updateFreelancer(<?= $GLOBALS['freelancers'][$i]['ID'] ?>)"> UPDATE </button>
-                                        <!-- <button type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModalCenter"> UPDATE </button>
-                        -->
+                                        <button type="button" class="btn btn-dark " onclick="updateUser(<?= $GLOBALS['users'][$i]['ID'] ?>)"> UPDATE
+                                        </button>
                                     </td>
 
                                 </tr>
@@ -137,17 +139,7 @@ getAllUsers();
                         }
                         ?>
                     </tbody>
-                    <tfoot>
-                        <tr class="table-dark">
-                            <th>ID</th>
-                            <th>FREELANCER NAME</th>
-                            <th>SKILL</th>
-                            <th>EMAIL</th>
-                            <th>BIRTHDAY</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
+
                 </table>
 
             </div>
@@ -167,25 +159,38 @@ getAllUsers();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="../../backend/freelancer_script.php" method="POST">
-                        <div class="mb-3">
-                            <input type="hidden" name="id_freelancer" class="form-control" id="idFormUpdate">
-                            <label for="recipient-name" class="col-form-label">Name freelancer</label>
-                            <input type="text" name="name_freelancer" class="form-control" id="nameFormUpdate">
-                        </div>
-                        <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Skill</label>
-                            <input type="text" name="skill" class="form-control" id="skillFormUpdate">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">birthday</label>
-                            <input type="text" name="birthday_user" class="form-control" id="birthdayFormUpdate">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Email</label>
-                            <input type="text" name="email_user" class="form-control" id="emailFormUpdate">
 
-                        </div>
+                    <div class="mb-3">
+                    <input type="hidden" name="id_user" class="form-control" id="idFormUpdate">
+                        <label for="recipient-name" class="col-form-label">Name User</label>
+                        <input type="text" id="name_user" name="name_user" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">EMAIL</label>
+                        <input type="text" id="email_user" name="email_user" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password</label>
+                        <input type="text" id="password_user" name="password_user" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">BIRTHDAY</label>
+                        <input type="text" id="birthday_user" name="birthday_user" class="form-control">
+                    </div>
+                    <label for="recipient-name" class="col-form-label">City</label>
+
+                    <select name="city_user" class="form-select" aria-label="Default select example">
+                        <option selected disabled>Open this select menu</option>
+                        <?php
+                        for ($i = 0; $i < count($GLOBALS["citys"]); $i++) {
+                        ?>
+                            <option value="<?= $GLOBALS["citys"][$i]["id"] ?>">
+                                <?= $GLOBALS["citys"][$i]["ville"] ?></option>
+                        <?php
+                        };
+                        ?>
+                    </select>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -197,33 +202,53 @@ getAllUsers();
     </div>
     <!-- add freelancer modal -->
 
-    <form action="../../backend/freelancer_script.php" method="POST">
+    <form action="../../backend/user_script.php" method="POST">
+
         <div class="modal fade modal-lg" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">NEW FREELANCER</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">NEW User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
+
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Name freelancer</label>
-                            <input type="text" name="name_freelancer" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Name User</label>
+                            <input type="text" name="name_user" class="form-control" >
                         </div>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Skill</label>
-                            <input type="text" name="skill" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">EMAIL</label>
+                            <input type="text" name="email_user" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">ID_user</label>
-                            <textarea class="form-control" name="ID_user" id="message-text"></textarea>
+                            <label for="message-text" class="col-form-label">Password</label>
+                            <input type="text" name="password_user" class="form-control">
                         </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">BIRTHDAY</label>
+                            <input type="text" name="birthday_user" class="form-control" >
+                        </div>
+                        <label for="recipient-name" class="col-form-label">City</label>
+
+                        <select name="city_user" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Open this select menu</option>
+                            <?php
+                            for ($i = 0; $i < count($GLOBALS["citys"]); $i++) {
+                            ?>
+                                <option value="<?= $GLOBALS["citys"][$i]["id"] ?>">
+                                    <?= $GLOBALS["citys"][$i]["ville"] ?></option>
+                            <?php
+                            };
+                            ?>
+                        </select>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-success" name="add_freelancers" value="ADD">
+                        <input type="submit" class="btn btn-success" name="add_user" value="ADD">
                     </div>
                 </div>
             </div>
@@ -234,7 +259,7 @@ getAllUsers();
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/user_script.js"></script>
 </body>
 
 </html>
