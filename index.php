@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="project/pages/index.html">here</a></body>
+    <a href="project/pages/index.php">here</a></body>
     <a href="project/dashboard/freelancers.php">dash</a></body>
 </html>

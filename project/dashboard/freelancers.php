@@ -6,6 +6,7 @@ $categorys_active = "";
 $Testimonial_active = "";
 require "../../backend/freelancer_script.php";
 getAllFreelancer();
+
 ?>
 
 
@@ -89,6 +90,7 @@ getAllFreelancer();
                     </ul>
                 </div>
             </nav>
+
             <div class="container my-4 py-4">
                 <!-- Primary Button -->
                 <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModalCenter1"> ADD new freelancer </button>
@@ -117,10 +119,10 @@ getAllFreelancer();
                                     <td><?= $GLOBALS["freelancers"][$i]["email"] ?></td>
                                     <td><?= $GLOBALS["freelancers"][$i]["birthday"] ?></td>
 
-                                    <form id="deleteForm" action="../../backend/freelancer_script.php" method="post">
-                                        <input type="hidden" name="deleteId" value="<?= $GLOBALS["freelancers"][$i]["ID"] ?>">
+                                    <form id="<?= $GLOBALS["freelancers"][$i]["ID"] ?>"  action="../../backend/freelancer_script.php" method="post">
+                                        <input type="hidden" id="deleteForm" name="deleteId" value="<?= $GLOBALS["freelancers"][$i]["ID"] ?>">
                                         <td>
-                                            <input type="submit" onclick="confirm('are you sure you want to delete this freelancer')" name="delete_freelancer" value="delete" class="btn btn-danger mx-2">
+                                            <input type="submit" onclick="return confirm('are you sure you want to delete this freelancer : ')" name="delete_freelancer" value="delete" class="btn btn-danger mx-2">
                                         </td>
                                     </form>
                                     <td>

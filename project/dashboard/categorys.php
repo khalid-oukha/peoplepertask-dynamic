@@ -74,7 +74,7 @@ getAllCategorys();
                         </div>
                     </div>
                     <div class="inline"></div>
-                    <div class="name">lahcen Admin</div>
+                    <div class="name">lighten Admin</div>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-icon pe-md-0 position-relative" data-bs-toggle="dropdown">
@@ -82,7 +82,7 @@ getAllCategorys();
                             </a>
                             <div class="dropdown-menu dropdown-menu-end position-absolute">
                                 <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Account Setting</a>
+                                                        <a class="dropdown-item" href="#">Account Setting</a>
                                 <a class="dropdown-item" href="/PeoplePerTask/project/pages/index.html">Log out</a>
                             </div>
                         </li>
@@ -121,6 +121,7 @@ getAllCategorys();
 
                             </tr>
 
+
                         <?php
                         }
                         ?>
@@ -139,7 +140,7 @@ getAllCategorys();
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">UPDATE CATEGORIE</h5>
+                    <h5 class="modal-title" id="exampleModalCenterTitle">UPDATE CATEGORIES</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

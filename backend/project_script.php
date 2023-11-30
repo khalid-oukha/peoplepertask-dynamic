@@ -51,8 +51,6 @@ function deleteProject(){
         global $con ;
         $res = mysqli_query($con,$query);
         header("Location: /PeoplePerTask/project/dashboard/projects.php");
-
-
 }
 
 

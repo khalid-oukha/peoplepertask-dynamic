@@ -6,8 +6,14 @@ $categorys_active = "";
 $Testimonial_active = "";
 
 require "../../backend/user_script.php";
-getAllUsers();
-getAllCitys();
+
+$queryuser = "SELECT u.ID,u.Name_user,u.Password_user,u.email,u.birthday,v.id,v.ville FROM users u 
+inner JOIN ville v
+ON u.city=v.id;";
+getall($queryuser,"users");
+
+$queryville = "SELECT * FROM ville;";
+getall($queryville,"ville");
 ?>
 
 

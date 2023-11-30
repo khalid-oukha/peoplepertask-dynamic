@@ -8,7 +8,6 @@ function updateUser(id){
         data: { userId: id },
         dataType: 'html',
         success: function(response) {
-           console.log(response);
            response = JSON.parse(response);
            document.getElementById("idFormUpdate").value = response["ID"];
            document.getElementById("name_user").value = response["Name_user"];
@@ -28,6 +27,6 @@ function updateUser(id){
 //     console.log(id)
 //     var confirmation  = confirm("are you sure you want to delete this freelancer");
 //     if(confirmation){
-//         document.getElementById("deleteForm").submit();
+//         document.getElementById(id).submit();
 //     }
 // }

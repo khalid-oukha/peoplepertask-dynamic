@@ -5,7 +5,7 @@ function updateFreelancer(id){
     $.ajax({
         url: '../../backend/freelancer_script.php', 
         method: 'POST', 
-        data: { sendId: id },
+        data: { sendId : id },
         dataType: 'html',
         success: function(response) {
            console.log(response);
@@ -26,7 +26,7 @@ function updateFreelancer(id){
 
 // function deleteFreelancer(id){
 //     console.log(id)
-//     var confirmation  = confirm("are you sure you want to delete this freelancer");
+//     var confirmation  = confirm("are you sure you want to delete this freelancer : " + id);
 //     if(confirmation){
 //         document.getElementById("deleteForm").submit();
 //     }

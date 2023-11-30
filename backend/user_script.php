@@ -6,28 +6,34 @@ if(isset($_POST['userId'])){
     getUser();
 }
 
-function getAllUsers(){
-    $query = "SELECT u.ID,u.Name_user,u.Password_user,u.email,u.birthday,v.id,v.ville FROM users u 
-    inner JOIN ville v
-    ON u.city=v.id;";
-
+function getall($query,$table){
     global $con;
     $res = mysqli_query($con,$query);
-
-    while($user = mysqli_fetch_assoc( $res )){
-        $GLOBALS['users'][]=$user;
+    while($row = mysqli_fetch_assoc( $res )){
+        $GLOBALS["$table"][]=$row;
     }
 }
-function getAllCitys(){
-    $query = "SELECT * FROM ville;";
+// function getAllUsers(){
+//     $query = "SELECT u.ID,u.Name_user,u.Password_user,u.email,u.birthday,v.id,v.ville FROM users u 
+//     inner JOIN ville v
+//     ON u.city=v.id;";
 
-    global $con;
-    $res = mysqli_query($con,$query);
+//     global $con;
+//     $res = mysqli_query($con,$query);
 
-    while($city = mysqli_fetch_assoc( $res )){
-        $GLOBALS['citys'][]=$city;
-    }
-}
+//     while($user = mysqli_fetch_assoc( $res )){
+//         $GLOBALS['users'][]=$user;
+//     }
+// }
+// function getAllCitys(){
+//     $query = "SELECT * FROM ville;";
+//     global $con;
+//     $res = mysqli_query($con,$query);
+
+//     while($city = mysqli_fetch_assoc( $res )){
+//         $GLOBALS['citys'][] = $city;
+//     }
+// }
 
 
 function adduser(){
@@ -67,7 +73,7 @@ function getUser(){
     global $con;
     $res = mysqli_query($con,$query);
     while($freelancer = mysqli_fetch_assoc( $res )){
-       echo json_encode ($freelancer);
+       echo json_encode($freelancer);
     }
 }
 function newDataFreelancer(){

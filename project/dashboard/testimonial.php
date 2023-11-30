@@ -6,7 +6,9 @@ $categorys_active = "";
 $Testimonial_active = "active";
 require "../../backend/testimonial_script.php";
 require "../../backend/freelancer_script.php";
+
 getAlltestimonials();
+
 ?>
 
 
