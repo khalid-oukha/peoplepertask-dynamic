@@ -1,4 +1,8 @@
 <!-- Navbar -->
+<?php
+
+require "../../connection_database/database.php";
+?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-postion ">
     <div class="container">
         <a class="navbar-brand" href="#"><img src="images/M.png" alt="logo"></a>
@@ -9,6 +13,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <?php
+                if(isset($_SESSION['email']) && $_SESSION['role'] == 'freelancer'){
+                ?>
+                 <li class="nav-item" >
+                    <a class="nav-link" style="color: green;" href="profile.php">Profile</a>
+                </li>
+                <?php
+                }
+                ?>
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php">Home</a>
                 </li>
@@ -35,6 +48,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php#testimonials-key">Testimonials</a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact</a>
                 </li>
@@ -47,9 +61,15 @@
                         <img src="images/searchicon.svg" alt="">
                     </span>
             </form>
-
-            <a class="btn btn-primary me-2 sign-style-color" href="../pages/login.php" role="button">Join</a>
-
-
+            <?php
+           
+           if (isset($_SESSION['email'])) {
+            ?>
+            <a class="btn btn-primary me-2 sign-style-color" href="handlers/logout.php" role="button">Logout</a>
+            <?php }
+            else
+            {?>
+            <a class="btn btn-primary me-2 sign-style-color" href="../pages/login.php" role="button">Login</a>
+            <?php } ?>
         </div>
 </nav>

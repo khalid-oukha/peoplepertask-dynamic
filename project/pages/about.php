@@ -1,3 +1,9 @@
+<?php
+session_start();
+require "../../connection_database/database.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

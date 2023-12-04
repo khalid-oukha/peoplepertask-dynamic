@@ -3,7 +3,7 @@ $(document).ready(function () {     $('#example').DataTable(); });
 function updateUser(id){
     var myModal = new bootstrap.Modal(document.getElementById('exampleModalCenter'));
     $.ajax({
-        url: '../../backend/user_script.php', 
+        url: '../../../backend/user_script.php', 
         method: 'POST', 
         data: { userId: id },
         dataType: 'html',
@@ -12,7 +12,7 @@ function updateUser(id){
            document.getElementById("idFormUpdate").value = response["ID"];
            document.getElementById("name_user").value = response["Name_user"];
            document.getElementById("email_user").value = response["email"];
-           document.getElementById("password_user").value = response["Password_user"];  
+        //    document.getElementById("password_user").value = response["Password_user"];  
            document.getElementById("birthday_user").value = response["birthday"];  
            myModal.show(); 
         },

@@ -1,57 +1,17 @@
 
 <?php
-session_start();
-$errors = array();
-require("../../connection_database/database.php");
+
+require "../../project/pages/handlers/login_sys.php";
 //user try to signup
 
- if(isset($_POST['register']))
- {
-     global $con;
-     $fname = mysqli_real_escape_string($con,$_POST['full_name']) ;
-     $email = mysqli_real_escape_string($con,$_POST['email']);
-     $password = mysqli_real_escape_string($con,$_POST['password']);
-     $cnfirmpassword = $_POST['cnfirmpassword'];
-     $birthday = mysqli_real_escape_string($con,$_POST['birthday']);
-     $city = mysqli_real_escape_string($con,$_POST['city']);
-     $email_check = "SELECT * FROM users u WHERE u.email = '$email'";
-     $res = mysqli_query($con, $email_check);
-     if(mysqli_num_rows($res) > 0){
-      $errors['email'] = "Email that you have entered is already exist!";
-     }
-      if($cnfirmpassword!==$password){
-        $errors['password'] = "Confirm password not matched!";
-    }
-     
-     if(count($errors) === 0){
-      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-     $addquery = "INSERT INTO users (Name_user, email, Password_user, birthday, city)
-     VALUES ('$fname', '$email', '$hashedPassword', '$birthday', $city);";
-     $result = mysqli_query($con,$addquery);
-     }
- }
-//user try to login
+if(isset($_POST['register']))
+{
+  $errors = signup();
+}
 if(isset($_POST['login'])){
-  $email = mysqli_real_escape_string($con,$_POST['email']);
-  $password = mysqli_real_escape_string($con,$_POST['password']);
-  $check_email = "SELECT * FROM users WHERE email = '$email';";
-  $res = mysqli_query($con, $check_email);
-  if(mysqli_num_rows($res) > 0){
-    $userdata = mysqli_fetch_assoc($res);
-    $get_pass = $userdata['Password_user'];
-    //checking password
-    if(password_verify($password, $get_pass)){
-      $_SESSION['email'] = $email;
-      $_SESSION['password'] = $password;
-      header('location: index.php');
-     }
-     else{
-      $errors['email'] = "Incorrect email or password!";
-  }
+  $errorslogin=login();
 }
-}else{
-  $errors['email'] = "not yet a member! Click on the bottom link to signup.";
-}
+ 
 ?>
 
 
@@ -95,7 +55,6 @@ if(isset($_POST['login'])){
           </div>
         </div>
         <div class="back">
-          <!--<img class="backImg" src="images/backImg.jpg" alt="">-->
           <div class="text">
             <span class="text-1">Complete miles of journey <br> with one step</span>
             <span class="text-2">Let's get started</span>
@@ -106,11 +65,23 @@ if(isset($_POST['login'])){
           <div class="form-content">
             <div class="login-form">
               <div class="title">Login</div>
+
+              <?php if(count($errorslogin) > 0){?>    
+                        <div class="alert alert-danger text-center">
+                            <?php
+                            foreach($errorslogin as $showerror){
+                                echo $showerror;
+                            }
+                            ?>
+            </div>
+              <?php
+              } ?>
+
             <form method="post">
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-envelope"></i>
-                  <input type="text" name="email" placeholder="Enter your email" required>
+                  <input type="text" name="email" placeholder="Enter your email" value="<?=isset($_COOKIE['email']) ? $_COOKIE['email'] : ''?>" required>
                 </div>
                 <div class="input-box">
                   <i class="fas fa-lock"></i>
@@ -126,7 +97,21 @@ if(isset($_POST['login'])){
         </div>
           <div class="signup-form">
             <div class="title">Signup</div>
-          <form method="post">
+
+              <?php if (count($errors) > 0) { ?>
+
+                  <?php
+                  foreach ($errors as $showerror) { ?>
+                      <div class="alert alert-danger text-center">
+                          <?php
+                          echo $showerror;
+                          ?>
+                      </div>
+                  <?php    } ?>
+                  <br />
+                  <?php
+              } ?>
+             <form method="post">
               <div class="input-boxes">
                 <div class="input-box">
                   <i class="fas fa-user"></i>
@@ -169,7 +154,8 @@ if(isset($_POST['login'])){
                 </div>
                 <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
               </div>
-        </form>
+              </form>
+          </div>
       </div>
       </div>
       </div>
