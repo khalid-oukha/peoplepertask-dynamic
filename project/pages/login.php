@@ -149,6 +149,7 @@ if(isset($_POST['login'])){
                       };
                       ?>
                   </select>
+
                 <div class="button input-box">
                   <input type="submit" name="register" value="Sumbit">
                 </div>

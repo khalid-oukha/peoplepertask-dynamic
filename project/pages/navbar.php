@@ -1,29 +1,27 @@
 <!-- Navbar -->
 <?php
 
-require "../../connection_database/database.php";
+// require "../../connection_database/database.php";
 ?>
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-postion ">
     <div class="container">
-        <a class="navbar-brand" href="#"><img src="images/M.png" alt="logo"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
+        <a class="navbar-brand" href="../../index.php"><img src="images/M.png" alt="logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <?php
-                if(isset($_SESSION['email']) && $_SESSION['role'] == 'freelancer'){
+                if (isset($_SESSION['email'])) {
                 ?>
-                 <li class="nav-item" >
-                    <a class="nav-link" style="color: green;" href="profile.php">Profile</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: green;" href="profile.php">Profile</a>
+                    </li>
                 <?php
                 }
                 ?>
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
+                    <a class="nav-link active" href="../../index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.php">about</a>
@@ -32,8 +30,7 @@ require "../../connection_database/database.php";
                     <a class="nav-link" href="pack.php">Pricing</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         category
                     </a>
                     <ul class="dropdown-menu">
@@ -55,21 +52,19 @@ require "../../connection_database/database.php";
             </ul>
             <!--  -->
             <form class="d-flex input-group w-auto">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                       aria-describedby="search-addon" />
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                 <span class="input-group-text border-0" id="search-addon">
-                        <img src="images/searchicon.svg" alt="">
-                    </span>
+                    <img src="project/pages/images/searchicon.svg" alt="">
+                </span>
             </form>
+            <a class="btn btn-primary me-2 sign-style-color" href="../pages/switchmode.php" role="button">Seller Mode</a>
             <?php
-           
-           if (isset($_SESSION['email'])) {
+
+            if (isset($_SESSION['email'])) {
             ?>
-            <a class="btn btn-primary me-2 sign-style-color" href="handlers/logout.php" role="button">Logout</a>
-            <?php }
-            else
-            {?>
-            <a class="btn btn-primary me-2 sign-style-color" href="../pages/login.php" role="button">Login</a>
+                <a class="btn btn-primary me-2 sign-style-color" href="handlers/logout.php" role="button">Logout</a>
+            <?php } else{ ?>
+                <a class="btn btn-primary me-2 sign-style-color" href="../pages/login.php" role="button">Login</a>
             <?php } ?>
         </div>
 </nav>
