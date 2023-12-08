@@ -1,19 +1,19 @@
 <?php
 session_start();
 require "../../project/pages/handlers/profile_script.php";
-
 if ($_SESSION['role'] == 'user') {
     //add project 
     function add_project()
     {
-
         $name_project = $_POST['Title'];
         $description = $_POST['Description_project'];
         $id_user = $_SESSION['id'];
         $id_category = $_POST['ID_Categorie'];
-        $addquery = "INSERT INTO Projets (Title, Description_project, ID_User, ID_Categorie)
+        $budget = $_POST['budget'];
+        $deadline = $_POST['deadline'];
+        $addquery = "INSERT INTO Projets (Title, Description_project, ID_User, ID_Categorie,deadline,budget)
             VALUES 
-            ('$name_project', '$description',$id_user,$id_category);";
+            ('$name_project', '$description',$id_user,$id_category,'$deadline',$budget);";
         global $con;
         $result = mysqli_query($con, $addquery);
         // header("Location: profile.php");
@@ -21,8 +21,35 @@ if ($_SESSION['role'] == 'user') {
     if (isset($_POST['addproject'])) {
         add_project();
     }
+
+    if(isset($_GET['offerid'])){
+        $id_offer = $_GET['offerid'];
+        $query = "UPDATE `offres` SET `is_accepted`='Y' WHERE ID_Offre=$id_offer;";
+        $res = mysqli_query($con,$query);
+    }
+    
 }
 
+//check if the user already accept offer
+function checkoffers($id_project){
+    $acceptedoffers = "select * from offres where ID_Project = $id_project and is_accepted = 'Y'";
+    global $con;
+    $res = mysqli_query($con, $acceptedoffers);
+    $numRows = mysqli_num_rows($res);
+    if($numRows>0){
+        return false;
+    }else{
+        return true ; 
+    }
+}
+
+if(isset($_GET['skillid'])){
+    $skill_id=$_GET['skillid'];
+    $deleteskill = "delete from freelancer_skills where ID = $skill_id";
+    global $con;
+    mysqli_query($con, $deleteskill);
+    header('location: profile.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +142,7 @@ if ($_SESSION['role'] == 'user') {
                             <div class="tab-pane active show" id="projects-tab" role="tabpanel">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-1">
-                                        <h4 class="card-title mb-4">Projects</h4>
+                                        <h4 class="card-title mb-4">assigned Projects</h4>
                                     </div>
                                 </div>
 
@@ -197,14 +224,13 @@ if ($_SESSION['role'] == 'user') {
                         </div>
                         <hr>
                         <div class="pt-2">
-                            <h4 class="card-title mb-4">My Skill</h4>
+                            <h4 class="card-title mb-4" id="skills">My Skill</h4>
                             <div class="d-flex gap-2 flex-wrap">
                                 <?php
                                 for ($i = 0; $i < count($GLOBALS["skills"]); $i++) {
                                 ?>
-                                    <span class="badge badge-soft-secondary p-2 py-2"><?= $GLOBALS["skills"][$i]['skill_name'] ?>
-
-                                        <i class="fa-solid fa-minus p-2"></i>
+                                    <span class="badge badge-soft-secondary p-2 py-2"><?= $GLOBALS["skills"][$i]['skill_name'] ?>                                       
+                                        <a href="profile.php?skillid=<?php echo htmlentities ($GLOBALS["skills"][$i]['ID']);?>" style="margin-left:10px; color:red;"><i class="fa-solid fa-minus p-2"></i></a>
                                     </span>
                                 <?php
                                 }
@@ -239,7 +265,6 @@ if ($_SESSION['role'] == 'user') {
                             </div>
                             <div class="my-2">
                                 <button type="submit" name="addskill" class="btn btn-outline-dark">Add skill</button>
-                                <button type="button" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -302,7 +327,7 @@ if ($_SESSION['role'] == 'user') {
                             <div class="row" id="all-projects">
                                 <?php
                                 $id_user = $_SESSION['id'];
-                                $fetchproject = "SELECT distinct p.ID,p.Title,p.Description_project,c.Name_categories,p.created_at,u.Name_user
+                                $fetchproject = "SELECT distinct p.ID,p.Title,p.Description_project,c.Name_categories,p.created_at,p.status,u.Name_user
                                 FROM projets p
                                 inner JOIN users u
                                 ON p.ID_User= u.ID
@@ -315,8 +340,17 @@ if ($_SESSION['role'] == 'user') {
                                     <div class="col-md-6" id="project-items-1">
                                         <div class="card">
                                             <div class="card-body">
+                                                
                                             <div class="mx-2 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit">Edit</button>
+                                                <a href="viewproject.php?viewid=<?php echo htmlentities ($row['ID']);?>" class="btn btn-outline-info btn-sm " style="margin-left:10px;">view more</a>
+                                                    <?php
+                                                    if(checkoffers($row['ID'])):
+                                                    ?>
+                                                <a href="viewoffers.php?viewid=<?php echo htmlentities ($row['ID']);?>" class="btn btn-outline-success btn-sm " style="margin-left:10px;">view Offers</a>
+                                                        <?php
+                                                        endif;
+                                                        ?>
                                             </div>
                                                 <div class="d-flex mb-3">
                                                     <div class="flex-grow-1 align-items-start">
@@ -345,9 +379,8 @@ if ($_SESSION['role'] == 'user') {
                                                         <span class="mx-2 project_owner"><?= $row['Name_user'] ?></span>
                                                     </div><!-- end avatar group -->
                                                     <div class="align-self-end">
-                                                        <span class="badge badge-soft-danger p-2 team-status">Pending</span>
+                                                        <span class="badge badge-soft-danger p-2 team-status"><?= $row['status'] ?></span>
                                                     </div>
-
                                                 </div>
                                             </div><!-- end cardbody -->
                                         </div><!-- end card -->
@@ -361,6 +394,7 @@ if ($_SESSION['role'] == 'user') {
                     </div>
                 </div><!-- end card -->
 
+                
                 <!-- add project modal -->
                 <form action="profile.php" method="POST">
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -375,9 +409,19 @@ if ($_SESSION['role'] == 'user') {
                                         <label for="recipient-name" class="col-form-label">Project Name</label>
                                         <input type="text" name="Title" class="form-control" id="recipient-name">
                                     </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Deadline</label>
+                                        <input type="date" name="deadline" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label">Budget</label>
+                                        <input type="text" name="budget" class="form-control" id="recipient-name">
+                                    </div>
                                     <div class="mb-3">
                                         <label for="recipient-name" class="col-form-label">Desciption</label>
-                                        <input type="text" name="Description_project" class="form-control" id="recipient-name">
+                                        <textarea name="Description_project" id="" cols="30" rows="10"></textarea>
+                                        <!-- <input type="text" name="Description_project" class="form-control" id="recipient-name"> -->
                                     </div>
                                     <label for="recipient-name" class="col-form-label">category</label>
 
@@ -425,6 +469,24 @@ if ($_SESSION['role'] == 'user') {
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/tae69tv15q8646ee9ytsznj2x6mphimtyeq9b9nhu5iyo6jg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+  tinymce.init({
+    selector: 'textarea',
+    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+    tinycomments_mode: 'embedded',
+    tinycomments_author: 'Author name',
+    mergetags_list: [
+      { value: 'First.Name', title: 'First Name' },
+      { value: 'Email', title: 'Email' },
+    ],
+    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+  });
+</script>
 </body>
 
 </html>

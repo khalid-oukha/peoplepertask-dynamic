@@ -43,7 +43,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php#testimonials-key">Testimonials</a>
+                    <a class="nav-link" href="../../index.php#testimonials-key">Testimonials</a>
                 </li>
 
                 <li class="nav-item">
@@ -57,9 +57,12 @@
                     <img src="project/pages/images/searchicon.svg" alt="">
                 </span>
             </form>
+            <?php
+            if(isset($_SESSION['email']) && $_SESSION['role'] == 'user'){
+            ?>
             <a class="btn btn-primary me-2 sign-style-color" href="../pages/switchmode.php" role="button">Seller Mode</a>
             <?php
-
+            }
             if (isset($_SESSION['email'])) {
             ?>
                 <a class="btn btn-primary me-2 sign-style-color" href="handlers/logout.php" role="button">Logout</a>

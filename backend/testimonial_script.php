@@ -18,7 +18,7 @@ function delete_testimonial(){
         $deletequery = "delete from testimonial where ID = '$id_testimonial';";
         global $con;
         $result = mysqli_query($con,$deletequery);
-        header("Location: /PeoplePerTask/project/dashboard/testimonial.php");
+        header("Location: ..\project\dashboard\testimonial.php");
     }
 }
 delete_testimonial();

@@ -55,15 +55,12 @@ function login()
             $_SESSION['password'] = $password;
             $_SESSION['role'] = $userdata['user_role'];
             $_SESSION['id'] = $userdata['ID'];
-            // var_dump($_SESSION['role']);die();
-            setcookie('email', $email, time() + 60 * 2, '/');
+            setcookie('email', $email, time() + 600 * 2, '/');
             if ($_SESSION['role'] == 'admin') {
                 header('location: ../dashboard/dashboard.php');
-            } else if ($_SESSION['role'] == 'freelancer') {
+            }else{
                 header('location: profile.php');
-            } else if ($_SESSION['role'] == 'user') {
-                header('location: profile.php');
-            }
+            } 
         } else {
             $errorslogin['email'] = "Incorrect email or password!";
         }

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $projects_active = "";
 $freelancer_active = "";
 $dashboard_active = "";
@@ -6,6 +7,11 @@ $categorys_active = "active";
 $Testimonial_active = "";
 require "../../backend/categorys_script.php";
 getAllCategorys();
+
+if ($_SESSION['role'] != 'admin') {
+    header('location: ../../index.php');
+}
+
 ?>
 
 

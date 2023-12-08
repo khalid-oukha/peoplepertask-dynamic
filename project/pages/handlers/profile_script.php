@@ -98,14 +98,15 @@ WHERE u.ID = $id_user;";
 
     //get all skills for a freelancer
     $id_freelancer = $_SESSION['id_freelance'];
-    $query = "SELECT s.skill_name FROM freelancer_skills fr INNER JOIN
+    $query = "SELECT s.skill_name,fr.ID FROM freelancer_skills fr INNER JOIN
 freelances f
 ON fr.freelancer_id=f.ID
 INNER JOIN skills s
 ON s.skill_id=fr.skill_id
-WHERE f.ID=$id_freelancer;";
+    WHERE f.ID=$id_freelancer;";
     global $con;
     $res = mysqli_query($con, $query);
+    $GLOBALS['skills'] = [];
     while ($row = mysqli_fetch_assoc($res)) {
         $GLOBALS['skills'][] = $row;
     }

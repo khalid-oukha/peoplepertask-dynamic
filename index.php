@@ -211,7 +211,7 @@ require "../PeoplePerTask/connection_database/database.php";
             <div class="row z-index-modifier">
                 <div class=" col-lg-4 col-md-6 col-12 my-4 d-flex flex-column align-items-center ">
                     <div class="card" style="max-width: 23rem;">
-                        <img class="my-2 " src="images/fatiphoto.svg" alt="lahcen" style="height: 9rem; ">
+                        <img class="my-2 " src="project/pages/images/fatiphoto.svg" alt="lahcen" style="height: 9rem; ">
                         <div class="card-body ">
                             <div class="card-head">
                                 <h5 class="card-title fw-semibold text-center">Fati</h5>
@@ -485,7 +485,7 @@ require "../PeoplePerTask/connection_database/database.php";
                                         <div class="col-3">
                                             <span class="row fw-bold fs-4" style="color: green;">72$</span>
                                         </div>
-
+                                    </div>
 
                                     </div>
                                 </div>

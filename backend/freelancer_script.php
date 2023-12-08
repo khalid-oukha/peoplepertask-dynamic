@@ -72,7 +72,7 @@ function newDataFreelancer(){
         WHERE f.ID=$id_feerlancer;";
         global $con;
         $result = mysqli_query($con,$addquery);
-        header("Location: /PeoplePerTask/project/dashboard/freelancers.php");
+        header("Location: ..\project\dashboard\freelancers.php");
     }
 }
 newDataFreelancer();

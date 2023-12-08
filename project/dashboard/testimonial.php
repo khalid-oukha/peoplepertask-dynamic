@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if ($_SESSION['role'] != 'admin') {
+    header('location: ../../index.php');
+}
+
 $projects_active = "";
 $freelancer_active = "";
 $dashboard_active = "";

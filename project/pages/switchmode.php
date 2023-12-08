@@ -15,12 +15,15 @@ function switchFreelancer()
     if($result){
       $updaterole = "UPDATE users u  
       SET u.user_role='freelancer' 
-      WHERE u.ID='';";
-      $result = mysqli_query($con, $addquery);
+      WHERE u.ID='$id_user';";
+      $result = mysqli_query($con, $updaterole);
+      if($result){
+        $_SESSION['role']='freelancer';
+      }
     }
     header("Location: profile.php");
 }
-if (isset($_POST['editfreelancer'])) {
+if (isset($_POST['switchfreelancer'])) {
     switchFreelancer();
 }
 ?>

@@ -1,6 +1,10 @@
 
 <?php
-include "../pages/handlers/login_sys.php"
+if ($_SESSION['role'] != 'admin') {
+    header('location: ../../index.php');
+}
+
+// include "../pages/handlers/login_sys.php"
 ?>
 <aside id="sidebar" class="side">
             <div class="h-100">

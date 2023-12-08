@@ -37,7 +37,7 @@ function add_project(){
     global $con;
     $result = mysqli_query($con,$addquery);
         
-    header("Location: /PeoplePerTask/project/dashboard/projects.php");
+    header("Location: ..\project\dashboard\projects.php");
 }
 
 }
@@ -50,8 +50,8 @@ function deleteProject(){
         $query = "DELETE FROM projets WHERE Id='$id';";
         global $con ;
         $res = mysqli_query($con,$query);
-        header("Location: /PeoplePerTask/project/dashboard/projects.php");
-}
+        header("Location: ..\project\dashboard\projects.php");
+    }
 
 
 function getProject(){
@@ -81,7 +81,7 @@ function newDataproject(){
         WHERE ID ='$id';";
         global $con;
         $result = mysqli_query($con,$editquery);
-        header("Location: /PeoplePerTask/project/dashboard/projects.php");
+        header("Location: ..\project\dashboard\projects.php");
     }
 }
 

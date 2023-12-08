@@ -42,7 +42,7 @@ function adduser(){
         ('$name_user', '$email_user','$password_user','$birthday_user','$city_user','$user_role');";
         global $con;
         $result = mysqli_query($con,$addquery);
-        header("Location: /PeoplePerTask/project/dashboard/user.php");
+        header("Location: ..\project\dashboard\user.php");
     }
 }
 adduser();
@@ -53,7 +53,7 @@ function deleteuser(){
         $deletequery = "delete from users where ID = '$id_user';";
         global $con;
         $result = mysqli_query($con,$deletequery);
-        header("Location: /PeoplePerTask/project/dashboard/user.php");
+        header("Location: ..\project\dashboard\user.php");
     }
 }
 deleteuser();
@@ -75,7 +75,6 @@ function newDatauser(){
         $id_user = $_POST['id_user'];
         $name_user = $_POST['name_user'];
         $email_user = $_POST['email_user'];
-        $password_user = $_POST['password_user'];
         $birthday_user = $_POST['birthday_user'];
         $city_user = $_POST['city_user'];
         $user_role = $_POST['user_role'];
@@ -83,13 +82,11 @@ function newDatauser(){
         // TODO: implement the validation of inputs
 
         $addquery = "UPDATE users
-        SET Name_user = '$name_user', Password_user='$password_user', birthday='$birthday_user',email='$email_user',city='$city_user',user_role ='$user_role'
+        SET Name_user = '$name_user', birthday='$birthday_user',email='$email_user',city=$city_user,user_role ='$user_role'
         WHERE ID=$id_user;";
         global $con;
         $result = mysqli_query($con,$addquery);
-        echo mysqli_error($con);
-
-        header("Location: /PeoplePerTask/project/dashboard/user.php");
+        header("Location: ..\project\dashboard\user.php");
     }
 }
 newDatauser();

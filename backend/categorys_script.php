@@ -36,7 +36,8 @@ function addcategory(){
         
         global $con;
         $result = mysqli_query($con,$addquery);
-        header("Location: /PeoplePerTask/project/dashboard/categorys.php");
+        header("Location: ..\project\dashboard\categories.php");
+
     }
 }
 addcategory();
@@ -47,7 +48,7 @@ function deleteCategorie(){
         $query = "DELETE FROM categories WHERE ID=$deleteId";
         global $con;
         $res = mysqli_query($con,$query);
-        header("Location: /PeoplePerTask/project/dashboard/categorys.php");
+        header("Location: ..\project\dashboard\categories.php");
     }
 }
 deleteCategorie();
@@ -80,7 +81,7 @@ function newDatacategorie(){
         
         global $con;
         $result = mysqli_query($con,$editquery);
-        header("Location: /PeoplePerTask/project/dashboard/categorys.php");
+        header("Location: ..\project\dashboard\categories.php");
     }
 }
 newDatacategorie();

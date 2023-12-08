@@ -3,7 +3,9 @@
 
 require "../../project/pages/handlers/login_sys.php";
 //user try to signup
-
+if(isset($_SESSION['email'])){
+    header('location: profile.php');
+}
 if(isset($_POST['register']))
 {
   $errors = signup();
@@ -11,7 +13,6 @@ if(isset($_POST['register']))
 if(isset($_POST['login'])){
   $errorslogin=login();
 }
- 
 ?>
 
 
@@ -80,8 +81,8 @@ if(isset($_POST['login'])){
             <form method="post">
               <div class="input-boxes">
                 <div class="input-box">
-                  <i class="fas fa-envelope"></i>
-                  <input type="text" name="email" placeholder="Enter your email" value="<?=isset($_COOKIE['email']) ? $_COOKIE['email'] : ''?>" required>
+                  <i class="fas fa-envelope"></i>  
+                  <input type="text" name="email" placeholder="Enter your email" value="<?=isset($_COOKIE['email']) ? $_COOKIE['email'] : 'Exmp@email.com'?>" required>
                 </div>
                 <div class="input-box">
                   <i class="fas fa-lock"></i>
@@ -127,7 +128,7 @@ if(isset($_POST['login'])){
                 </div>
                 <div class="input-box">
                       <i class="fas fa-lock"></i>
-                      <input type="text" name="cnfirmpassword" placeholder="Confirm password" required>
+                      <input type="password" name="cnfirmpassword" placeholder="Confirm password" required>
                 </div>
                 <div class="input-box">
                   <i class="fas fa-user"></i>
