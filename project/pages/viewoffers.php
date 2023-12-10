@@ -118,7 +118,7 @@ if (isset($_GET['viewid'])) {
                                         <p>
                                             <?= $row['description'] ?>
                                         </p>
-                                        <a href="profile.php?offerid=<?php echo htmlentities ($row['ID_Offre']);?>" class="btn btn-primary btn-block des-project" style="position: absolute; bottom: 5px; right: 5px;">view more</a>
+                                        <a href="profile.php?offerid=<?php echo htmlentities ($row['ID_Offre']);?>" class="btn btn-primary btn-block des-project" style="position: absolute; bottom: 5px; right: 5px;">accept offer</a>
                                     </div>
                                 </div>
                             </div>

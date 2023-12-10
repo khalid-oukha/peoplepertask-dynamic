@@ -33,7 +33,7 @@ require "../../connection_database/database.php";
 
                     <div class="widget border-0">
                         <div class="locations">
-                            <input class="form-control" type="text" placeholder="All Locations">
+                            <input class="form-control" id="searchinput" type="text" placeholder="All Locations">
                         </div>
                     </div>
                     <div class="widget">
@@ -230,20 +230,20 @@ require "../../connection_database/database.php";
                 </div>
             </div>
             <div class="col-lg-9 ">
-                <div class="row g-2 ">
+                <div class="row g-2 " id="projects-container">
                     <?php
-                    $query = "select p.ID,p.Title,p.Description_project,p.budget,u.Name_user,c.Name_categories from Projets p
+                        $query = "select p.ID,p.Title,p.Description_project,p.budget,u.Name_user,c.Name_categories from Projets p
                         left join Categories c on 
                         p.ID_Categorie=c.ID
                         inner join users u on
-                        p.ID_User = u.ID;";
+                        p.ID_User = u.ID";
 
                     global $con;
                     $res = mysqli_query($con, $query);
                     while ($project = mysqli_fetch_assoc($res)) {
 
                     ?>
-                        <div class="col-4">
+                        <div class="col-4" id="projectData">
                             <!-- Basic -->
                             <div class="card" style="width: 20rem;">
                                 <img src="/project/pages/images/html.jpg" class="card-img-top" alt="">
@@ -266,16 +266,17 @@ require "../../connection_database/database.php";
             </div>
         </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="javascript/recherch.js"></script>
-
-
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js'></script>
+    <script src="javascript/livesearch.js"></script>
+
+
 </body>
 
 </html>
