@@ -38,9 +38,8 @@ function user_projects(){
     group by u.Name_user
     ORDER BY count(p.ID_User) desc
     LIMIT 5;";
-
     global $con ;
-    
+    $GLOBALS['users']=[];
     $res = mysqli_query($con,$query);
     if($res){
         if(mysqli_num_rows($res)>0){

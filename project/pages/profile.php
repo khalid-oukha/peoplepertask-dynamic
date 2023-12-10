@@ -308,7 +308,7 @@ if(isset($_GET['skillid'])){
             </div><!-- end card -->
             <?php
             if ($_SESSION['role'] == 'user') {
-            ?>
+            ?>           
                 <div class="card">
                     <div class="text-right mt-3 mx-2 d-flex justify-content-end">
                         <!-- Button trigger modal -->
@@ -342,8 +342,8 @@ if(isset($_GET['skillid'])){
                                             <div class="card-body">
                                                 
                                             <div class="mx-2 d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModaledit">Edit</button>
-                                                <a href="viewproject.php?viewid=<?php echo htmlentities ($row['ID']);?>" class="btn btn-outline-info btn-sm " style="margin-left:10px;">view more</a>
+                                            <a href="editproject.php?projectid=<?php echo htmlentities ($row['ID']);?>" class="btn btn-outline-warning btn-sm " style="margin-left:10px;">Edit</a>
+                                            <a href="viewproject.php?viewid=<?php echo htmlentities ($row['ID']);?>" class="btn btn-outline-info btn-sm " style="margin-left:10px;">view more</a>
                                                     <?php
                                                     if(checkoffers($row['ID'])):
                                                     ?>
