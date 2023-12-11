@@ -10,7 +10,7 @@ if(isset($_POST['query'])){
     p.ID_Categorie=c.ID
     inner join users u on
     p.ID_User = u.ID
-    where p.Title like '%$input%';";
+    where p.Title like '%$input%' or c.Name_categories like '%$input%';";
 
     global $con;
     $res = mysqli_query($con, $query);

@@ -73,26 +73,19 @@ require "../../connection_database/database.php";
                         </div>
                         <div class="collapse show" id="specialism">
                             <div class="widget-content">
+                                    <?php
+                                    $query = "SELECT * FROM categories";
+                                    $res = mysqli_query($con,$query);
+                                    while($row = mysqli_fetch_assoc($res)):
+                                    ?>
+
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="specialism1">
-                                    <label class="custom-control-label" for="specialism1">IT Contractor</label>
+                                    <input type="checkbox" value="<?=$row['Name_categories']?>" class="custom-control-input" id="filtercategorie">
+                                    <label class="custom-control-label"  for="specialism2"><?=$row['Name_categories']?></label>
                                 </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="specialism2">
-                                    <label class="custom-control-label" for="specialism2">Clinical Psychology</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="specialism3">
-                                    <label class="custom-control-label" for="specialism3">Digital &amp; Creative</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="specialism4">
-                                    <label class="custom-control-label" for="specialism4">Estate Agency</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="specialism5">
-                                    <label class="custom-control-label" for="specialism5">Graduate</label>
-                                </div>
+                                <?php
+                                endwhile;
+                                ?>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 
-
+//search for projects
 $(document).ready(function(){
     $("#searchinput").keyup(function(){
         var input = $(this).val();
@@ -18,6 +18,7 @@ $(document).ready(function(){
     })
 
 });
+
 
 function displayProject(project) {
     let container = document.getElementById("projects-container");
